@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      html, body, 
+      #map-canvas 
+      { 
+        height: 100%; 
+        margin: 0; 
+        padding: 0;
+      }
+    </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb4hbW4uWeCdfPFCwuj2GPAhxMJIinP2c">
+    </script>
+    <script src="content/jquery-2.1.4.min.js"></script>
+    <script src="content/vex.min.js"></script>
+    <link rel="stylesheet" href="content/vex.css" />
+    <script type="text/javascript">
+
+      var map;
+      var marker;
+      var citysound;
+      var markers, contentFilenames;
+
+      function initialize() {
+        
+        var mapOptions = {
+          center: { lat: 55.749792, lng: 37.632495},
+          zoom: 12,
+          mapTypeId : google.maps.MapTypeId.SATELLITE,
+          minZoom : 12,
+          disableDefaultUI: true,
+          zoomControl: true
+        };
+        map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+
+        var strictBounds = new google.maps.LatLngBounds(
+          new google.maps.LatLng(55.493025, 37.321101), 
+          new google.maps.LatLng(56.010370, 37.946182)
+        );
+
+        // Listen for the dragend event
+        google.maps.event.addListener(map, 'dragend', function() {
+          if (strictBounds.contains(map.getCenter())) return;
+
+          // We're out of bounds - Move the map back within the bounds
+
+          var c = map.getCenter(),
+          x = c.lng(),
+          y = c.lat(),
+          maxX = strictBounds.getNorthEast().lng(),
+          maxY = strictBounds.getNorthEast().lat(),
+          minX = strictBounds.getSouthWest().lng(),
+          minY = strictBounds.getSouthWest().lat();
+
+          if (x < minX) x = minX;
+          if (x > maxX) x = maxX;
+          if (y < minY) y = minY;
+          if (y > maxY) y = maxY;
+
+          map.setCenter(new google.maps.LatLng(y, x));
+        });
+
+        markers = new Array();
+        var markerIcon = "content/equalizer7.svg";
+
+        markers[0] = new google.maps.Marker({
+          position: new google.maps.LatLng(55.598625, 37.546064),
+          map: map,
+          icon: markerIcon,
+          title: 'Чёрный Пруд'
+        });
+
+        var $content0 = '<div class="vexContent"><video autoplay loop style="width: 100%; height: 100%">' +
+        '<source src="content/1.mp4.mp4" type="video/mp4">' +
+        '</video></div>'
+
+        function openMarker0() {
+          vex.open({
+            css: { 'opacity' : '0.9' },
+
+            afterOpen: function($vexContent) {
+              $vexContent.append($content0);
+              citysound.volume = 0.0;
+            },
+
+            afterClose: function($vexContent) {
+              citysound.volume = 0.2;
+            }
+          });
+        }
+
+        google.maps.event.addListener(markers[0], 'click', openMarker0);
+
+        markers[1] = new google.maps.Marker({
+          position: new google.maps.LatLng(55.536246, 37.514467),
+          map: map,
+          icon: markerIcon,
+          title: 'Бутово'
+        });
+
+        var $content1 = '<div class="vexContent"><video autoplay loop style="width: 100%; height: 100%">' +
+        '<source src="content/2.mp4" type="video/mp4">' +
+        '</video></div>'
+
+        function openMarker1() {
+          vex.open({
+            css: { 'opacity' : '0.9' },
+
+            afterOpen: function($vexContent) {
+              $vexContent.append($content1);
+              citysound.volume = 0.0;
+            },
+
+            afterClose: function($vexContent) {
+              citysound.volume = 0.2;
+            }
+          });
+        }
+
+        google.maps.event.addListener(markers[1], 'click', openMarker1);
+
+        markers[2] = new google.maps.Marker({
+          position: new google.maps.LatLng(55.653922, 37.647186),
+          map: map,
+          icon: markerIcon,
+          title: 'Торговый центр'
+        });
+
+        var $content2 = '<div class="vexContent"><video autoplay loop style="width: 100%; height: 100%">' +
+        '<source src="content/3mp4.mp4" type="video/mp4">' +
+        '</video></div>'
+
+        function openMarker2() {
+          vex.open({
+            css: { 'opacity' : '0.9' },
+
+            afterOpen: function($vexContent) {
+              $vexContent.append($content2);
+              citysound.volume = 0.0;
+            },
+
+            afterClose: function($vexContent) {
+              citysound.volume = 0.2;
+            }
+          });
+        }
+
+        google.maps.event.addListener(markers[2], 'click', openMarker2);
+
+        markers[3] = new google.maps.Marker({
+          position: new google.maps.LatLng(55.742058, 37.614549),
+          map: map,
+          icon: markerIcon,
+          title: 'Центр'
+        });
+
+        var $content3 = '<div class="vexContent"><video autoplay loop style="width: 100%; height: 100%">' +
+        '<source src="content/4.mp4" type="video/mp4">' +
+        '</video></div>'
+
+        function openMarker3() {
+          vex.open({
+            css: { 'opacity' : '0.9' },
+
+            afterOpen: function($vexContent) {
+              $vexContent.append($content3);
+              citysound.volume = 0.0;
+            },
+
+            afterClose: function($vexContent) {
+              citysound.volume = 0.2;
+            }
+          });
+        }
+
+        google.maps.event.addListener(markers[3], 'click', openMarker3);
+
+        markers[4] = new google.maps.Marker({
+          position: new google.maps.LatLng(55.652172, 37.508575),
+          map: map,
+          icon: markerIcon,
+          title: 'Общежитие РУДН'
+        });
+
+        var $content4 = '<div class="vexContent"><video autoplay loop style="width: 100%; height: 100%">' +
+        '<source src="content/5.mp4" type="video/mp4">' +
+        '</video></div>'
+
+        function openMarker4() {
+          vex.open({
+            css: { 'opacity' : '0.9' },
+
+            afterOpen: function($vexContent) {
+              $vexContent.append($content4);
+              citysound.volume = 0.0;
+            },
+
+            afterClose: function($vexContent) {
+              citysound.volume = 0.2;
+            }
+          });
+        }
+
+        google.maps.event.addListener(markers[4], 'click', openMarker4);
+
+        markers[5] = new google.maps.Marker({
+          position: new google.maps.LatLng(55.652244, 37.508130),
+          map: map,
+          icon: markerIcon,
+          title: 'Общежитие РУДН'
+        });
+
+        var $content5 = '<div class="vexContent"><video autoplay loop style="width: 100%; height: 100%">' +
+        '<source src="content/6.mp4" type="video/mp4">' +
+        '</video></div>'
+
+        function openMarker5() {
+          vex.open({
+            css: { 'opacity' : '0.9' },
+
+            afterOpen: function($vexContent) {
+              $vexContent.append($content5);
+              citysound.volume = 0.0;
+            },
+
+            afterClose: function($vexContent) {
+              citysound.volume = 0.2;
+            }
+          });
+        }
+
+        google.maps.event.addListener(markers[5], 'click', openMarker5);
+
+        markers[6] = new google.maps.Marker({
+          position: new google.maps.LatLng(55.625659, 37.521554),
+          map: map,
+          icon: markerIcon,
+          title: 'Улица Академика Капицы'
+        });
+
+        var $content6 = '<div class="vexContent"><video autoplay loop style="width: 100%; height: 100%">' +
+        '<source src="content/7.mp4" type="video/mp4">' +
+        '</video></div>'
+
+        function openMarker6() {
+          vex.open({
+            css: { 'opacity' : '0.9' },
+
+            afterOpen: function($vexContent) {
+              $vexContent.append($content6);
+              citysound.volume = 0.0;
+            },
+
+            afterClose: function($vexContent) {
+              citysound.volume = 0.2;
+            }
+          });
+        }
+
+        google.maps.event.addListener(markers[6], 'click', openMarker6);
+
+        markers[7] = new google.maps.Marker({
+          position: new google.maps.LatLng(55.652616, 37.507737),
+          map: map,
+          icon: markerIcon,
+          title: 'Общежитие РУДН'
+        });
+
+        var $content7 = '<div class="vexContent"><video autoplay loop style="width: 100%; height: 100%">' +
+        '<source src="content/8.mp4" type="video/mp4">' +
+        '</video></div>'
+
+        function openMarker7() {
+          vex.open({
+            css: { 'opacity' : '0.9' },
+
+            afterOpen: function($vexContent) {
+              $vexContent.append($content7);
+              citysound.volume = 0.0;
+            },
+
+            afterClose: function($vexContent) {
+              citysound.volume = 0.2;
+            }
+          });
+        }
+
+        google.maps.event.addListener(markers[7], 'click', openMarker7);
+
+        markers[8] = new google.maps.Marker({
+          position: new google.maps.LatLng(55.749366, 37.611167),
+          map: map,
+          icon: markerIcon,
+          title: 'Дом Пашкова'
+        });
+
+        var $content8 = '<div class="vexContent"><video autoplay loop style="width: 100%; height: 100%">' +
+        '<source src="content/9.mp4" type="video/mp4">' +
+        '</video></div>'
+
+        function openMarker8() {
+          vex.open({
+            css: { 'opacity' : '0.9' },
+
+            afterOpen: function($vexContent) {
+              $vexContent.append($content8);
+              citysound.volume = 0.0;
+            },
+
+            afterClose: function($vexContent) {
+              citysound.volume = 0.2;
+            }
+          });
+        }
+
+        google.maps.event.addListener(markers[8], 'click', openMarker8);
+
+        markers[9] = new google.maps.Marker({
+          position: new google.maps.LatLng(55.655363, 37.498021),
+          map: map,
+          icon: markerIcon,
+          title: 'Здание Напротив общежития РУДН'
+        });
+
+        var $content9 = '<div class="vexContent"><video autoplay loop style="width: 100%; height: 100%">' +
+        '<source src="content/10mp4.mp4" type="video/mp4">' +
+        '</video></div>'
+
+        function openMarker9() {
+          vex.open({
+            css: { 'opacity' : '0.9' },
+
+            afterOpen: function($vexContent) {
+              $vexContent.append($content9);
+              citysound.volume = 0.0;
+            },
+
+            afterClose: function($vexContent) {
+              citysound.volume = 0.2;
+            }
+          });
+        }
+
+        google.maps.event.addListener(markers[9], 'click', openMarker9);
+
+        markers[10] = new google.maps.Marker({
+          position: new google.maps.LatLng(55.626435, 37.513790),
+          map: map,
+          icon: markerIcon,
+          title: 'У Палеонтологического Музея'
+        });
+
+        var $content10 = '<div class="vexContent"><video autoplay loop style="width: 100%; height: 100%">' +
+        '<source src="content/12.mp4" type="video/mp4">' +
+        '</video></div>'
+
+        function openMarker10() {
+          vex.open({
+            css: { 'opacity' : '0.9' },
+
+            afterOpen: function($vexContent) {
+              $vexContent.append($content10);
+              citysound.volume = 0.0;
+            },
+
+            afterClose: function($vexContent) {
+              citysound.volume = 0.2;
+            }
+          });
+        }
+
+        google.maps.event.addListener(markers[10], 'click', openMarker10);
+      }
+    
+      google.maps.event.addDomListener(window, 'load', initialize);
+      
+    </script>
+  </head>
+  <body>
+    <audio id="citysound" src="content/city.wav" autoplay loop></audio>
+    <script>
+      citysound = document.getElementById('citysound');
+      citysound.volume = 0.2;
+    </script>
+    <div id="map-canvas"></div>
+  </body>
+</html>
